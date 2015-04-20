@@ -4,6 +4,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   color: #3e3947;
   background-color: white;
+    line-height: 1.6;
 }
 
 body, html {
@@ -17,6 +18,10 @@ a {
 
 img {
   max-width: 100%;
+}
+
+.content p{
+    margin-bottom: 35px;
 }
 
 /* -------------------------------- 
@@ -37,6 +42,18 @@ Modules - reusable parts of our design
 Main components 
 
 -------------------------------- */
+
+.lead{
+  font-size: 1.4em;
+
+}
+
+.links{
+  opacity: 1;
+   transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
+}
 .section {
   min-height: 100%;
   padding: 2em 0;
@@ -294,6 +311,16 @@ Main components
 
 }
 
+.third {
+  width: 30%;
+  float: left;
+  padding: 10px;
+}
+
+.center{
+    max-width: 980px;
+    margin: 0 auto;
+}
 
 
 #section1{
@@ -319,6 +346,20 @@ Main components
   background-size: cover;
   background-attachment: fixed;
 }
+
+#how{
+  background: url("../img/how-01.png") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+
+}
+
+#how h2{
+    text-align: center;
+    margin: 120px 0 50px;
+}
+
 #section5{
   background: url("../img/home-01.png") no-repeat;
   background-size: cover;

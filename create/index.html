@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title>Parse Test</title>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+  	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+  	<link rel="stylesheet" href="style.css">
+  
+  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8/jquery.validate.min.js"></script>
+  	<script src="underscore.js"></script>
+    <script src="http://www.parsecdn.com/js/parse-1.3.0.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpaqRvLxa3rdLhQDhHhfgRTTDJE5Pb258"></script>
+
+	<script src="shelf.js"></script>
+
+  </head>
+  <body>
+  	<div class="container" id="shelfapp">
+        <div class="navbar-header">
+          <a href="" class="navbar-brand">Shelf</a>
+        </div>
+    </div>
+    <div class="container">
+  		<div class ="page"></div>
+  	</div>
+
+    <script type="text/template" id="login-template">
+
+      	<div id="login-panel" class="col-md-7">
+      	<div class="panel-group" id="accordion">
+      		<div class="panel panel-default">
+      			<div class="panel-heading">
+     				 <h2 class="text-center lead">Login to your Shelf Account</h2>
+     			</div>
+  				<div class="panel-body">
+			        <form class="login-form form-group">
+	
+			          <div class="error" style="display:none"></div>
+			          <div class="form-group">
+					  <input class="form-control" type="text" id="login-username" placeholder="Username" />
+					  </div>
+					  <div class="form-group">
+			          <input class="form-control" type="password" id="login-password" placeholder="Password" />
+			          </div>
+			          <button class="btn btn-info btn-block">Log In</button>
+
+			        
+
+
+			        </form>
+			        <button class="btn btn-primary btn-block"style="display: none;" id="login">Login</button>
+
+			             <form class="signup-form closed">
+			          	
+				          <div class="error" style="display:none"></div>
+				          <div class="form-group">
+				          <input class="form-control" type="text" id="signup-username" placeholder="Username" />
+				          </div>
+				          <div class="form-group">
+				          <input class="form-control" type="password" id="signup-password" placeholder="Create a Password" />
+				          </div>
+				       
+				          <button class="btn btn-primary btn-block">Sign Up</button>
+				       </form>
+ 					   
+				       	<button class="btn btn-primary btn-block " id="signup">Sign Up</button>
+				       
+			    </div>
+			</div>
+
+
+
+		</div>
+
+
+
+
+	   	</div>
+
+	   	    	<div id="logo"class="col-md-5">
+    		<img class="img-responsive" src="logo.png">
+    	</div>
+    </script>
+
+    <script type="text/template" id="experience-list-template">
+    	<div id="user-info">
+	    	Signed in as <%= Parse.User.current().escape("username") %> (<a href="#" class="log-out">Log out</a>)
+	    </div>
+	    <div class="col-md-6">
+	    	<h2>Your Experiences</h2>
+	    	<% _.each(experiences, function(experience) {%>
+				<a href="#/edit-experience/<%= experience.id %>" class="btn btn-default btn-lg btn-block"> <%= experience.get('name') %> </a>
+	    	<% }); %>
+	    	
+	    	<a href="#/new-experience" class="btn btn-primary btn-lg btn-block">Create New Experience</a>
+	    </div>
+	    <div class="col-md-6">
+	    	<h2>Groups</h2>
+
+	    	<%
+	    	_.each(groups, function(group) { 
+	    		%>
+
+	    		<a href="#/edit-group/<%= group.id %>" class="btn btn-default btn-lg btn-block"> <%= group.get('name') %> </a>
+	    	<% }); %>
+
+	    	<a href="#/new-group" class="btn btn-primary btn-lg btn-block"> + </a>
+
+	    </div>
+    </script>
+
+    <script type="text/template" id="edit-group-template">
+    	<div class="col-md-7">
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+
+						<a href="#">Groups</a> > 
+						<a href="#/<%= group ? 'edit-group/' + group.id :  'new-group' %>" ><%= group ? group.get('name') :  'New Group' %> </a>
+
+					<h2><%= group ? ' Edit' : ' Create a New' %> Group</h2>
+					<p>A group is a collection of Experiences.  All Experiences within a group will share the same styles.</p> 
+					 <% if(group) { %>
+							 
+
+						<button data-group-id="<%= group.id %>" class="btn btn-danger delete">Delete</button>
+					<% };%>
+    				</div>
+    				<div class="panel-heading">
+				      <h4 class="panel-title lead">
+				        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+				          Step 1: Group Styles
+				        </a>
+				      </h4>
+				    </div>
+				    <div class="panel-body">
+				    	<form class="edit-group-form">
+				    		<div class="form-group">
+				    			<input name="name" id="group-name" type="text" class="form-control input-lg required" placeholder="Group Name" value="<%= group ? group.get('name') : ''%>">
+				    			<label class="control-lable" style="display:none;" for="group-name">You must give your group a name</label>
+				    		</div>
+
+				    									<div class="checkbox">
+							    <label>
+							      <input type="checkbox" id="privacy" value="<%= group ? group.get('private') : ''%>"> Private
+							    </label>
+
+							
+							</div>
+
+				    		<div class="form-group swatches">
+				    			<h4>Color Scheme</h4>
+				    			<div class="row">
+				    			<input type="radio" name="swatch" value="#ac783a" id="swatch-00" checked="checked" />
+								<label class="radio col-xs-4 col-sm-3 col-lg-2" for="swatch-00" ><img src="assets/swatches-00.png"></label>
+
+				    			<input type="radio" name="swatch" value="#a05c60" id="swatch-01"/>
+								<label class="radio col-xs-4 col-sm-3 col-lg-2" for="swatch-01" ><img src="assets/swatches-01.png"></label>
+
+				    			<input type="radio" name="swatch" value="#237e7c" id="swatch-02" />
+								<label class="radio col-xs-4 col-sm-3 col-lg-2" for="swatch-02"><img src="assets/swatches-02.png"></label>
+
+				    			<input type="radio" name="swatch" value="#a31d21" id="swatch-03" />
+								<label class="radio col-xs-4 col-sm-3 col-lg-2" for="swatch-03"><img src="assets/swatches-03.png"></label>
+							
+				    			<input type="radio" name="swatch" value="#af4c28" id="swatch-04" />
+								<label class="radio col-xs-4 col-sm-3 col-lg-2" for="swatch-04" ><img src="assets/swatches-04.png"></label>
+
+				    			<input type="radio" name="swatch" value="#b38534" id="swatch-05"  />
+								<label class="radio col-xs-4 col-sm-3 col-lg-2" for="swatch-05" ><img src="assets/swatches-05.png"></label>
+
+				    			<input type="radio" name="swatch" value="#577c48" id="swatch-06" />
+								<label class="radio col-xs-4 col-sm-3 col-lg-2" for="swatch-06" ><img src="assets/swatches-06.png"></label>
+
+				    			<input type="radio" name="swatch" value="#037639" id="swatch-07"/>
+								<label class="radio col-xs-4 col-sm-3 col-lg-2" for="swatch-07" ><img src="assets/swatches-07.png"></label>
+													
+				    			<input type="radio" name="swatch" value="#006b58" id="swatch-08" />
+								<label class="radio col-xs-4 col-sm-3 col-lg-2" for="swatch-08"><img src="assets/swatches-08.png"></label>
+
+				    			<input type="radio" name="swatch" value="#006e87" id="swatch-09" />
+								<label class="radio col-xs-4 col-sm-3 col-lg-2" for="swatch-09"><img src="assets/swatches-09.png"></label>
+
+				    			<input type="radio" name="swatch" value="#354a6f" id="swatch-10" />
+								<label class="radio col-xs-4 col-sm-3 col-lg-2" for="swatch-10" ><img src="assets/swatches-10.png"></label>
+
+				    			<input type="radio" name="swatch" value="#423462" id="swatch-11"/>
+								<label class="radio col-xs-4 col-sm-3 col-lg-2" for="swatch-11"><img src="assets/swatches-11.png"></label>
+				    		</div>
+
+				    		<div class="form-group">
+				    			<h4>Background Image</h4>
+				    			<div class="row">
+				    			<input type="radio" name="background" value="02" id="background-00" checked="checked" />
+								<label class="radio col-sm-6" for="background-00" ><img src="assets/bg-00.svg"></label>
+
+				    			<input type="radio" name="background" value="01" id="background-01"/>
+								<label class="radio col-sm-6" for="background-01" ><img src="assets/bg-01.svg"></label>
+								</div>
+								</div>
+							</div>
+
+				    		<% if(group) { %>
+							  	<input type="hidden" name="id" value="<%= group.id%>"/>
+
+
+							<% };%>
+							<button type="submit" class="btn btn-info btn-lg btn-block"><%= group ? 'Edit' : 'Create' %></button>
+				    	</form>
+				    </div>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="col-md-5">
+    		<div class="panel panel-default">
+    						<div class="panel-heading">
+				    <h2>Experiences</h2>
+				</div>
+	    	<div class="panel-body">
+	    	<% _.each(experiences, function(experience) {%>
+				<a href="#/edit-experience/<%= experience.id %>" class="btn btn-default btn-lg btn-block"> <%= experience.get('name') %> </a>
+	    	<% }); %>
+	    	
+	    	<a href="#/new-experience" class="btn btn-primary btn-lg btn-block">Create New Experience</a>
+	    	</div>
+	    	</div>
+	    </div>
+    </script>
+
+	<script type="text/template" id="edit-experience-template">
+		
+		<div class="col-md-7">
+			<div class="panel-group" id="accordion">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+
+						<a href="#">Expeiences</a> > 
+						<a href="#/<%= experience ? 'edit-experience/' + experience.id :  'new-experience' %>" ><%= experience ? experience.get('name') :  'New Experience' %> </a>
+
+					<h2><%= experience ? ' Edit' : ' Create a New' %> Experience</h2>
+												  <% if(experience) { %>
+							 
+
+							  	<button data-experience-id="<%= experience.id %>" class="btn btn-danger delete">Delete</button>
+							  <% };%>
+
+					</div>
+					<div class="panel-heading">
+				      <h4 class="panel-title lead">
+				        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+				          Step 1: Experience Setup
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapseOne" class="panel-collapse collapse in">
+		  				<div class="panel-body">
+							<form class="edit-experience-form">
+							  <div class="form-group">
+							  	
+							    	<input name="name" type="text" id="experience-name" class="form-control input-lg required" placeholder="Experience Name" value="<%= experience ? experience.get('name') :  '' %>">
+									<label class="control-label" style="display: none;" for="experience-name">You must give your experience a name.</label>							    	
+	
+							  </div>
+							  <div class="form-group">
+							    <div class="input-group">
+							      <div class="input-group-addon">#</div>
+							      <input class="form-control input-lg" type="text" placeholder="Twitter Hashtag" name="twitter" value="<%= experience ? experience.get('twitter') :  '' %>">
+							   							    </div>
+							  </div>
+
+							  <div class="form-group">
+							    
+							      
+							      <input class="form-control input-lg required" type="text" placeholder="Location" name="address" id ="address" value="<%= experience ? experience.get('address') :  '' %>">
+							      <label class="control-label" style="display: none;" for="address">You set the address of your location.</label>
+			
+							  </div>
+
+							  <div class="form-group">  
+							    <textarea rows="4" class="form-control input-lg" placeholder="Description" name="description" ><%= experience ? experience.get('description') :  '' %>
+							    </textarea>
+							</div>
+							<div class="form-group">
+								<select class="form-control group-select">
+			
+	    							<%_.each(groups, function(group) { %>
+	    							
+	    								<%console.log(group.id); %>
+	    								<option id="group" value="<%= group ? group.id : ''%>"> <%= group.get('name') %> </option>
+	    						
+	    						<% }); %>
+								</select>
+							</div>
+							<div class="form-group form-inline">
+							    
+							      
+							      <input id="start" class="form-control input-lg required" type="date"  name="start" value="<%= experience ? experience.get('start') :  '' %>">
+							      <label class="control-label" style="display: none;" for="start">You must set the starting date.</label>
+							</div>
+							<div class="form-group form-inline">
+							       <span> to </span>
+							      <input id="end"class="form-control input-lg required" type="date"  name="expire" value="<%= experience ? experience.get('expire') :  '' %>">
+							      <label class="control-label" style="display: none;" for="end">You must set the end date.</label>
+
+							</div>
+
+							<div class="checkbox">
+							    <label>
+							      <input type="checkbox" id="privacy" value="true" > Private
+							    </label>
+							</div>
+
+							
+
+
+							  <% if(experience) { %>
+							  	<input type="hidden" name="id" value="<%= experience.id%>"/>
+
+
+							  <% };%>
+							  <button type="submit" class="btn btn-info btn-lg btn-block"><%= experience ? 'Edit' : 'Create' %></button>
+							</form>
+						</div>
+					</div>
+					<div class="panel-heading">
+				      <h4 class="panel-title lead">
+				        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+				          Step 2: Challnege Setup
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapseTwo" class="panel-collapse collapse in">
+				    	<div class="panel-body">
+				    	<% if(experience) { %>
+				    		<%_.each(challenges, function(challenge) {%>
+							<a href="#/<%= experience.id%>/edit-challenge/<%= challenge.id %>" class="btn btn-default btn-lg btn-block"> <%= challenge.get('name') %> </a>
+    					
+    					<%}); %>
+				    		
+
+						<a href="#/<%= experience.id%>/new-challenge" class="btn btn-primary btn-lg btn-block">Add Challenge</a>
+						<% } %>
+						
+						</div>
+				    </div>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-5 shelf">
+
+
+
+		</div>
+	</script>
+
+	<script type="text/template" id="edit-challenge-template">
+
+		<div class="col-md-7">
+			<form class="edit-challenge-form">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<a href="#">Expeiences</a> > 
+					<a href="#/edit-experience/<%= experience.id %>"><%= experience.get('name') %></a> > 
+					<a href="#/<%= experience.id %>/<%= challenge ? 'edit-challenge/' + challenge.id :  'new-challenge' %>"><%= challenge ? challenge.get('name') :  'New Challenge' %></a>
+
+					<h2><%= challenge ? ' Edit' : ' Create a New' %> Challenge</h2>
+					<% if(challenge) { %>
+							 
+
+						<button data-experience-id="<%= challenge.id %>" class="btn btn-danger delete">Delete</button>
+					<% };%>
+
+				</div>
+				<div class="panel-heading">
+				    <h4 class="panel-title lead">
+				   
+				          Step 1: Basic Information
+				        
+				     </h4>
+				</div>
+
+				
+
+				<div class="panel-body">
+					
+					<div class="form-group">
+						<input type="text" name="name" id="challenge-name"class="form-control input-lg required"placeholder="Challenge Name" value="<%= challenge ? challenge.get('name') :  '' %>">
+						<label class="control-label" style="display: none;" for="challenge-name">You must name your challenge.</label>
+					</div>
+
+					<div class="form-group">
+							<input type="text" name="hint" class="form-control input-lg" placeholder="hint" value="<%= challenge ? challenge.get('hint') :  '' %>">
+					</div>
+
+
+
+				</div>
+				<div class="panel-heading">
+				      <h4 class="panel-title lead">
+				   
+				          Step 2: Beacon Information
+				        
+				      </h4>
+				</div>
+				<div class="panel-body">
+						<div class="form-group">
+							<input type="text" name="beacon" id="challenge-beacon" class="form-control input-lg required" placeholder="beacon uuid" value="<%= challenge ? challenge.get('beacon') :  '' %>">
+							<label class="control-label" style="display: none;" for="challenge-beacon">You must enter the beacon UUID.</label>
+						</div>
+
+
+
+						<div class="form-group">
+							<input type="text" name="major" id="challenge-major" class="form-control input-lg required" placeholder="major" value="<%= challenge ? challenge.get('major') :  '' %>">
+							<label class="control-label" style="display: none;" for="challenge-major">You must enter the major id of your beacon.</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="minor" id="challenge-minor" class="form-control input-lg required" placeholder="minor" value="<%= challenge ? challenge.get('minor') :  '' %>">
+							<label class="control-label" style="display: none;" for="challenge-minor">You must enter the minor id of your beacon.</label>
+						</div>
+
+				</div>
+				<div class="panel-heading">
+				      <h4 class="panel-title lead">
+				   
+				          Step 3: Question & Answer
+				        
+				      </h4>
+				</div>
+				<div class="panel-body">
+						<div id="type-select">
+							<div class="radio">
+						  	<label>
+						    	<input type="radio" name="type" value="multiple" checked="checked">
+						    Multiple Choice
+						  	</label>
+							</div>
+							<div class="radio">
+							  <label>
+							    <input type="radio" name="type" value="fill-in" >
+							    Fill in the Blank
+							  </label>
+							</div>
+							<div class="radio">
+							  <label>
+							    <input type="radio" name="type" value="photo" >
+							    Photo
+							  </label>
+							</div>
+						</div>
+			
+						<div class="form-group challenge-type" id= "question" >
+							<input type="text"  id = "questionInput" placeholder="Enter a multiple choice question" name="question" class="form-control input-lg required" value="<%= challenge ? challenge.get('question') :  '' %>">
+							<label class="control-label" style="display: none;" for="questionInput">You must enter text.</label>
+
+							
+							</br>
+							<div id="correct" class="form-group">
+								<input type="text" name="correct" class="form-control input-lg" placeholder="Enter the correct answer" value="<%= challenge ? challenge.get('correct') :  '' %>">
+							</div>
+
+							<div id="multiple" >
+
+
+
+							<input type="text" name="incorrect" class="form-control input-lg"placeholder="Enter an inncorrect choice" value="<%= challenge ? challenge.get('incorrect[0]') :  '' %>">
+							<input type="text" name="incorrect" class="form-control input-lg"placeholder="Enter an inncorrect choice" value="<%= challenge ? challenge.get('incorrect[1]') :  '' %>">
+							<input type="text" name="incorrect" class="form-control input-lg"placeholder="Enter an inncorrect choice" value="<%= challenge ? challenge.get('incorrect[2]') :  '' %>">
+							</div>
+
+						</div>
+
+
+					</div>
+
+					<div class="panel-heading">
+				      <h4 class="panel-title lead">
+				   
+				          Step 4: Post-Answer Information
+				        
+				      </h4>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<textarea rows="4" class="form-control input-lg" placeholder="Description" name="description" ><%= challenge ? challenge.get('description') :  '' %></textarea>
+						</div>
+
+						<div class="form-group">
+
+					</div>
+						<% if(challenge) { %>
+							<input type="hidden" name="id" value="<%= challenge.id%>"/>
+						<%}%>
+						<input type="hidden" name="Experience" value="<%= experience.id %>"/>
+						<button type="submit" class="btn btn-primary btn-lg btn-block"><%= challenge? 'Edit' : 'Create' %></button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+
+
+		<% if(challenge) { %>
+			<div class="panel panel-default">
+  				<div>
+  	
+    <img id="trophy-icon" class="inject-me" src="http://files.parsetfss.com/28b26ab9-0324-4fc9-a261-b79c0f645960/tfss-c62c0ad5-3071-4881-a9ec-b83eebe170df-trophy-01.svg" alt="trophy Image">
+					
+				</div>
+
+
+
+			</div>
+		<%} else{%>
+
+				<div class="panel panel-default">
+  				<div>
+
+
+					<div id="trophy-panel"><img id="trophyImg" src="mystery-trophy.png"></div>
+					
+				</div>
+
+
+
+			</div>
+		<%} %>
+		</div>
+
+
+	</script>
+    <script src="js/svg-injector.min.js"></script>
+    <script>
+      // For testing in IE8
+      if (!window.console){ console = {log: function() {}}; };
+      // Elements to inject
+
+      var mySVGsToInject = $('img.inject-me', $("#edit-challenge-template").html());
+
+      console.log(mySVGsToInject);
+      // Options
+      var injectorOptions = {
+        evalScripts: 'once',
+        pngFallback: 'assets/png',
+        each: function (svg) {
+          // Callback after each SVG is injected
+
+          if (svg) console.log('SVG injected: ' + svg.getAttribute('id'));
+        }
+      };
+      // Trigger the injection
+      SVGInjector(mySVGsToInject, injectorOptions, function (totalSVGsInjected) {
+        // Callback after all SVGs are injected
+        console.log('We injected ' + totalSVGsInjected + ' SVG(s)!');
+      });
+
+          
+
+
+			
+
+							    
+							    
+    </script>
+
+
+
+
+
+  </body>
+</html>

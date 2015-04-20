@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SVGInjector Example</title>
+    <style>
+      .thumb-icon {
+
+        display: block;
+        margin: 100px auto;
+      }
+
+       #color .primary{
+        fill: #1ba39f;
+      }
+
+      #color .secondary{
+
+        fill: #49b4bb;
+      }
+
+
+    </style>
+  </head>
+  <body>
+<div>
+
+    <img  class="inject-me thumb-icon" data-src="http://files.parsetfss.com/28b26ab9-0324-4fc9-a261-b79c0f645960/tfss-c62c0ad5-3071-4881-a9ec-b83eebe170df-trophy-01.svg" alt="thumb">
+
+<div id="color">
+        <img  class="inject-me thumb-icon" data-src="http://files.parsetfss.com/28b26ab9-0324-4fc9-a261-b79c0f645960/tfss-c62c0ad5-3071-4881-a9ec-b83eebe170df-trophy-01.svg" alt="thumb">
+      </div>
+</div>
+
+
+    <script src="js/svg-injector.min.js"></script>
+    <script>
+      // For testing in IE8
+      if (!window.console){ console = {log: function() {}}; };
+      // Elements to inject
+// Elements to inject
+var mySVGsToInject = document.querySelectorAll('img.inject-me');
+
+// Options
+var injectorOptions = {
+  evalScripts: 'once',
+  pngFallback: 'assets/png',
+  each: function (svg) {
+    // Callback after each SVG is injected
+    console.log('SVG injected: ' + svg.getAttribute('id'));
+  }
+};
+
+// Trigger the injection
+SVGInjector(mySVGsToInject, injectorOptions, function (totalSVGsInjected) {
+  // Callback after all SVGs are injected
+  console.log('We injected ' + totalSVGsInjected + ' SVG(s)!');
+});
+    </script>
+  </body>
+</html>

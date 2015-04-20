@@ -1,5 +1,5 @@
 body{
-	background: url('bg-04.png');
+	background: url('../img/bg-04.png');
 	background-size: 700px;
 	background-repeat: repeat-x;
 	background-attachment: fixed;

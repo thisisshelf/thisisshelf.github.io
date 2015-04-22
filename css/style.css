@@ -5,6 +5,7 @@ body {
   color: #3e3947;
   background-color: white;
     line-height: 1.6;
+
 }
 
 body, html {
@@ -303,68 +304,36 @@ Main components
 
 
 
-.content{
-  width: 40%;
-  position: absolute;
-  left: 45%;
-  top: 35%;
 
-}
 
-.third {
-  width: 30%;
-  float: left;
-  padding: 10px;
-}
+
 
 .center{
-    max-width: 980px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 
-#section1{
-  background: url("../img/home-01.png") no-repeat;
-    background-size: cover;
-  background-attachment: fixed;
 
-}
-#section2{
-  background: url("../img/explore-01.png") no-repeat;
-    background-size: cover;
-  background-attachment: fixed;
-
-}
-#section3{
-  background: url("../img/collect-01.png") no-repeat;
-    background-size: cover;
-  background-attachment: fixed;
-
-}
-#section4{
-  background: url("../img/learn-01.png") no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-
-#how{
-  background: url("../img/how-01.png") no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-
-
-}
 
 #how h2{
     text-align: center;
     margin: 120px 0 50px;
 }
 
-#section5{
-  background: url("../img/home-01.png") no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+
+
+.img-container{
+  text-align: center;
+    padding: 20px;
+
 }
+
+.img-container img {
+  max-height: 200px;
+}
+
+
 
 .section{
   position: relative;
@@ -373,8 +342,96 @@ Main components
   background-size: cover;
   background-attachment: fixed;
 }
+
+  .third {
+    text-align: center;
+  width: 100%;
+  float: left;
+  }
+
+.section{
+      background: url("../img/how-01.png") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+}
+
+  #section1{
+    background: url("../img/home-01.png") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 20% 0px;
+
+  }
+  #section2{
+    background: url("../img/explore-01.png") no-repeat;
+      background-size: cover;
+    background-attachment: fixed;
+    background-position: 20% 0px;
+
+  }
+  #section3{
+    background: url("../img/collect-01.png") no-repeat;
+      background-size: cover;
+    background-attachment: fixed;
+    background-position: 20% 0px;
+
+  }
+  #section4{
+    background: url("../img/learn-01.png") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 20% 0px;
+  }
+
+
+
+  #section5{
+  background: url("../img/home-01.png") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: 20% 0px;
+  }
+
+  #how{
+    background: url("../img/how-01.png") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 20% 0px;
+
+
+  }
+
+  .content {
+  background: rgba(255,255,255,0.9);
+  padding: 20px;
+}
+
 @media only screen and (min-width: 768px) {
   .touch .nav-trigger, .touch #vertical-nav {
     bottom: 40px;
   }
+
+  .third {
+  width: 30%;
+  float: left;
+  padding: 10px;
+  }
+
+  .content{
+    width: 40%;
+    position: absolute;
+    left: 45%;
+    top: 35%;
+    background: none;
+
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+
+    .section{
+    background-position: 0;
+  }
+
 }

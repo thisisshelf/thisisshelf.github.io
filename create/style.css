@@ -78,10 +78,10 @@ textarea{
 	resize:none;
 }
 .shelf{
-	background: url(shelf.png);
-background-size: 100%;
-min-height: 720px;
-background-repeat: repeat-y;
+	background: url('../img/shelf.png');
+	background-size: 100%;
+	min-height: 720px;
+	background-repeat: repeat-y;
 }
 
 .swatches input[type="radio"]{

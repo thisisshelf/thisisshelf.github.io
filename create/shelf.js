@@ -1,5 +1,3 @@
-
-
 $(function() {
 
   Parse.$ = jQuery;
@@ -170,6 +168,9 @@ $(function() {
       experiences.query = query;
       experiences.fetch({
           success: function (experiences) {
+            var query2 = new Parse.Query(Group);
+            query2.equalTo("user", Parse.User.current());
+            groups.query2 = query2;
             groups.fetch({
               success: function (groups){
                 var template = _.template($('#experience-list-template').html(), {experiences: experiences.models, groups: groups.models});
@@ -192,6 +193,7 @@ $(function() {
       'submit .edit-group-form': 'saveGroup',
       'click .delete' : 'deleteGroup',
     },
+
 
     saveGroup: function(ev){
       console.log("saving group clicked");
@@ -270,9 +272,8 @@ $(function() {
 
       var that = this;
 
-
-
       if(options.groupId){
+        console.log("getting group w id");
         that.group = new Group({id:options.groupId});
         var query = new Parse.Query(Group);
         query.equalTo("id", options.groupId);
@@ -281,10 +282,6 @@ $(function() {
           success: function (group){
             var experiences = new Experiences();
             var query = new Parse.Query(Experience);
-
-            
-
-            
 
             query.equalTo("group", group);
             experiences.query = query;
@@ -304,8 +301,10 @@ $(function() {
         })
       }
       else{
-        var template = _.template($('#edit-group-template').html(), {group: null});
+console.log("getting group no id");
+        var template = _.template($('#edit-group-template').html(), {group: null, experiences: null});
         that.$el.html(template);
+
       }
       
       

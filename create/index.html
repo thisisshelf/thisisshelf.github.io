@@ -105,7 +105,7 @@
 	    		<a href="#/edit-group/<%= group.id %>" class="btn btn-default btn-lg btn-block"> <%= group.get('name') %> </a>
 	    	<% }); %>
 
-	    	<a href="#/new-group" class="btn btn-primary btn-lg btn-block"> + </a>
+	    	<a href="#/new-group" class="btn btn-primary btn-lg btn-block"> Create New Group </a>
 
 	    </div>
     </script>
@@ -115,18 +115,16 @@
     		<div class="panel-group">
     			<div class="panel panel-default">
     				<div class="panel-heading">
-
 						<a href="#">Groups</a> > 
 						<a href="#/<%= group ? 'edit-group/' + group.id :  'new-group' %>" ><%= group ? group.get('name') :  'New Group' %> </a>
 
-					<h2><%= group ? ' Edit' : ' Create a New' %> Group</h2>
-					<p>A group is a collection of Experiences.  All Experiences within a group will share the same styles.</p> 
-					 <% if(group) { %>
-							 
-
-						<button data-group-id="<%= group.id %>" class="btn btn-danger delete">Delete</button>
-					<% };%>
+						<h2><%= group ? ' Edit' : ' Create a New' %> Group</h2>
+						<p>A group is a collection of Experiences.  All Experiences within a group will share the same styles.</p> 
+					 	<% if(group) { %>
+							 <button data-group-id="<%= group.id %>" class="btn btn-danger delete">Delete</button>
+						<% };%>
     				</div>
+
     				<div class="panel-heading">
 				      <h4 class="panel-title lead">
 				        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -134,6 +132,7 @@
 				        </a>
 				      </h4>
 				    </div>
+
 				    <div class="panel-body">
 				    	<form class="edit-group-form">
 				    		<div class="form-group">
@@ -141,12 +140,10 @@
 				    			<label class="control-lable" style="display:none;" for="group-name">You must give your group a name</label>
 				    		</div>
 
-				    									<div class="checkbox">
+				    		<div class="checkbox">
 							    <label>
 							      <input type="checkbox" id="privacy" value="<%= group ? group.get('private') : ''%>"> Private
 							    </label>
-
-							
 							</div>
 
 				    		<div class="form-group swatches">
@@ -192,40 +189,43 @@
 				    		<div class="form-group">
 				    			<h4>Background Image</h4>
 				    			<div class="row">
-				    			<input type="radio" name="background" value="02" id="background-00" checked="checked" />
-								<label class="radio col-sm-6" for="background-00" ><img src="../img/bg-00.svg"></label>
+					    			<input type="radio" name="background" value="02" id="background-00" checked="checked" />
+									<label class="radio col-sm-6" for="background-00" ><img src="../img/bg-00.svg"></label>
 
-				    			<input type="radio" name="background" value="01" id="background-01"/>
-								<label class="radio col-sm-6" for="background-01" ><img src="../img/bg-01.svg"></label>
-								</div>
+					    			<input type="radio" name="background" value="01" id="background-01"/>
+									<label class="radio col-sm-6" for="background-01" ><img src="../img/bg-01.svg"></label>
 								</div>
 							</div>
+						
 
 				    		<% if(group) { %>
 							  	<input type="hidden" name="id" value="<%= group.id%>"/>
-
-
 							<% };%>
+
 							<button type="submit" class="btn btn-info btn-lg btn-block"><%= group ? 'Edit' : 'Create' %></button>
 				    	</form>
 				    </div>
     			</div>
     		</div>
     	</div>
+    	</div>
+
     	<div class="col-md-5">
     		<div class="panel panel-default">
     						<div class="panel-heading">
 				    <h2>Experiences</h2>
 				</div>
 	    	<div class="panel-body">
-	    	<% _.each(experiences, function(experience) {%>
-				<a href="#/edit-experience/<%= experience.id %>" class="btn btn-default btn-lg btn-block"> <%= experience.get('name') %> </a>
-	    	<% }); %>
+
+		    	<% _.each(experiences, function(experience) {%>
+					<a href="#/edit-experience/<%= experience.id %>" class="btn btn-default btn-lg btn-block"> <%= experience.get('name') %> </a>
+		    	<% }); %>
+
 	    	
-	    	<a href="#/new-experience" class="btn btn-primary btn-lg btn-block">Create New Experience</a>
-	    	</div>
+	    		<a href="#/new-experience" class="btn btn-primary btn-lg btn-block">Create New Experience</a>
 	    	</div>
 	    </div>
+
     </script>
 
 	<script type="text/template" id="edit-experience-template">
@@ -311,14 +311,11 @@
 							    </label>
 							</div>
 
-							
-
 
 							  <% if(experience) { %>
 							  	<input type="hidden" name="id" value="<%= experience.id%>"/>
-
-
 							  <% };%>
+
 							  <button type="submit" class="btn btn-info btn-lg btn-block"><%= experience ? 'Edit' : 'Create' %></button>
 							</form>
 						</div>
@@ -532,39 +529,7 @@
 
 
 	</script>
-    <script src="js/svg-injector.min.js"></script>
-    <script>
-      // For testing in IE8
-      if (!window.console){ console = {log: function() {}}; };
-      // Elements to inject
 
-      var mySVGsToInject = $('img.inject-me', $("#edit-challenge-template").html());
-
-      console.log(mySVGsToInject);
-      // Options
-      var injectorOptions = {
-        evalScripts: 'once',
-        pngFallback: 'assets/png',
-        each: function (svg) {
-          // Callback after each SVG is injected
-
-          if (svg) console.log('SVG injected: ' + svg.getAttribute('id'));
-        }
-      };
-      // Trigger the injection
-      SVGInjector(mySVGsToInject, injectorOptions, function (totalSVGsInjected) {
-        // Callback after all SVGs are injected
-        console.log('We injected ' + totalSVGsInjected + ' SVG(s)!');
-      });
-
-          
-
-
-			
-
-							    
-							    
-    </script>
 
 
 

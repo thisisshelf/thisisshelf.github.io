@@ -286,7 +286,7 @@
 			
 	    							<%_.each(groups, function(group) { %>
 	    							
-	    								<%console.log(group.id); %>
+	    								
 	    								<option id="group" value="<%= group ? group.id : ''%>"> <%= group.get('name') %> </option>
 	    						
 	    						<% }); %>
@@ -295,12 +295,12 @@
 							<div class="form-group form-inline">
 							    
 							      
-							      <input id="start" class="form-control input-lg required" type="date"  name="start" value="<%= experience ? experience.get('start') :  '' %>">
+							      <input id="start" class="form-control input-lg required" type="date"  value="<%= experience ? (experience.get('start')).toISOString().substring(0, 10) :  '' %>">
 							      <label class="control-label" style="display: none;" for="start">You must set the starting date.</label>
 							</div>
 							<div class="form-group form-inline">
 							       <span> to </span>
-							      <input id="end"class="form-control input-lg required" type="date"  name="expire" value="<%= experience ? experience.get('expire') :  '' %>">
+							      <input id="end"class="form-control input-lg required" type="date"  value="<%= experience ? (experience.get('expire')).toISOString().substring(0, 10) :  '' %>">
 							      <label class="control-label" style="display: none;" for="end">You must set the end date.</label>
 
 							</div>

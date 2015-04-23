@@ -353,17 +353,23 @@ console.log("getting group no id");
 
       geocoder.geocode( { 'address': address}, function(results, status) {
           var location = results[0].geometry.location;
-
-          //console.log(location.lat() + '' + location.lng());
           point = new Parse.GeoPoint({latitude: location.lat(), longitude: location.lng()});
-          //latlng = new google.maps.LatLng(location.lat(), location.lng());
-          //console.log(point);
           address = results[0].formatted_address;
 
         });
 
 
-        //console.log('the start date is' + $('#start').val());
+        console.log('the start date is ' + $('#start').val());
+
+        var date = new Date($('#start').val());
+        var expire = new Date($('#end').val());
+        console.log("date object is " + date);
+
+
+
+
+       // var date = new Date($('#start').val());
+        //var expire = new Date($('#end').val());
 
           var privacy;
           
@@ -401,7 +407,7 @@ console.log("getting group no id");
     });
 
       if ($('#start').val() > $('#end').val()) {
-          console.log("start date is after end");
+          //console.log("start date is after end");
           $('#start').parent().addClass("has-error");
           $('#end').parent().addClass("has-error");
           $("label[for='start']").show();
@@ -420,6 +426,10 @@ console.log("getting group no id");
           
           experience.set("group", selectedGroup);
           //experience.set("group", null);
+
+
+          experience.set("start", date);
+          experience.set("expire", expire);
 
           experience.set("user", Parse.User.current());
           experienceACL.setPublicReadAccess(true);

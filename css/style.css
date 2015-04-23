@@ -4,7 +4,10 @@ body {
   font-family: 'Open Sans', sans-serif;
   color: #3e3947;
   background-color: #FAE5E1;
-    line-height: 1.6;
+  background: url("../img/how-01.png") no-repeat;
+  background-attachment: fixed;
+  line-height: 1.6;
+  background-size: cover;
 
 
 }
@@ -350,14 +353,34 @@ Main components
   float: left;
   }
 
-.section{
+/*.section{
       background: url("../img/how-01.png") no-repeat;
     background-size: cover;
     background-attachment: fixed;
 
+}*/
+
+.content, .third{
+  margin: 20px 60px 20px 20px;
 }
 
-  #section1{
+  footer{
+    font-size: 11px;
+    padding: 20px;
+  }
+
+
+  #trophy{
+    padding-top: 60px;
+    max-width: 300px;
+  }
+@media only screen and (min-width: 768px) {
+
+    #trophy{
+      display: none;
+    }
+
+    #section1{
     background: url("../img/home-01.png") no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -403,10 +426,7 @@ Main components
 
   }
 
-  
 
-
-@media only screen and (min-width: 768px) {
   .touch .nav-trigger, .touch #vertical-nav {
     bottom: 40px;
   }
@@ -418,6 +438,7 @@ Main components
   }
 
   .content{
+    padding:0;
     width: 40%;
     position: absolute;
     left: 45%;

@@ -4,7 +4,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   color: #3e3947;
   background-color: #FAE5E1;
-
+  background: url("../img/how-01.png") no-repeat;
   background-attachment: fixed;
   line-height: 1.6;
   background-size: cover;
@@ -375,31 +375,43 @@ Main components
     max-width: 300px;
   }
 
+
+
+
+.section {
+  position: relative;
+  padding: 3em 5% 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+@media only screen and (min-width: 768px) {
+
       #section1{
     background: url("../img/home-01.png") no-repeat;
-    background-size: cover;
-    background-attachment: fixed!important;
+background-position: 30% 0px;
+  background-size: 1300px;
 
 
   }
   #section2{
     background: url("../img/explore-01.png") no-repeat;
-      background-size: cover;
-    background-attachment: fixed!important;
 
+background-position: 30% 0px;
+  background-size: 1300px;
 
   }
   #section3{
     background: url("../img/collect-01.png") no-repeat;
-      background-size: cover;
-    background-attachment: fixed!important;
 
+background-position: 30% 0px;
+  background-size: 1300px;
 
   }
   #section4{
     background: url("../img/learn-01.png") no-repeat;
-    background-size: cover;
-    background-attachment: fixed!important;
+background-position: 30% 0px;
+  background-size: 1300px;
 
   }
 
@@ -407,21 +419,19 @@ Main components
 
   #section5{
   background: url("../img/home-01.png") no-repeat;
-  background-size: cover;
-  background-attachment: fixed!important;
+background-position: 30% 0px;
+  background-size: 1300px;
 
   }
 
   #how{
     background: url("../img/how-01.png") no-repeat;
-    background-size: cover;
-    background-attachment: fixed!important;
 
+background-position: 30% 0px;
+  background-size: 1300px;
 
 
   }
-
-@media only screen and (min-width: 768px) {
 
     #trophy{
       display: none;
@@ -452,13 +462,114 @@ Main components
 
   .section{
     background-position: 30% 0px;
+    height: 100%;
+      padding: 0;
   }
 }
+
+@media only screen and (min-width: 1048px){
+  .section{
+  background-attachment: fixed;
+}
+
+      #section1{
+    background: url("../img/home-01.png") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+
+  }
+  #section2{
+    background: url("../img/explore-01.png") no-repeat;
+      background-size: cover;
+    background-attachment: fixed;
+
+
+  }
+  #section3{
+    background: url("../img/collect-01.png") no-repeat;
+      background-size: cover;
+    background-attachment: fixed;
+
+
+  }
+  #section4{
+    background: url("../img/learn-01.png") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+  }
+
+
+
+  #section5{
+  background: url("../img/home-01.png") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+  }
+
+  #how{
+    background: url("../img/how-01.png") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    
+}
+
+
 
 @media only screen and (min-width: 1300px) {
 
     .section{
-    background-position: 0;
+     background-attachment: fixed;
   }
 
+/*        #section1{
+    background: url("../img/home-01.png") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+
+  }
+  #section2{
+    background: url("../img/explore-01.png") no-repeat;
+      background-size: cover;
+    background-attachment: fixed;
+
+
+  }
+  #section3{
+    background: url("../img/collect-01.png") no-repeat;
+      background-size: cover;
+    background-attachment: fixed;
+
+
+  }
+  #section4{
+    background: url("../img/learn-01.png") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+  }
+
+
+
+  #section5{
+  background: url("../img/home-01.png") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+  }
+
+  #how{
+    background: url("../img/how-01.png") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+
+
+  }*/
+
+
 }
+

@@ -374,13 +374,8 @@ Main components
     padding-top: 60px;
     max-width: 300px;
   }
-@media only screen and (min-width: 768px) {
 
-    #trophy{
-      display: none;
-    }
-
-    #section1{
+      #section1{
     background: url("../img/home-01.png") no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -426,12 +421,20 @@ Main components
 
   }
 
+@media only screen and (min-width: 768px) {
+
+    #trophy{
+      display: none;
+    }
+
+
 
   .touch .nav-trigger, .touch #vertical-nav {
     bottom: 40px;
   }
 
   .third {
+    margin: 0;
   width: 30%;
   float: left;
   padding: 10px;

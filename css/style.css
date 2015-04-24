@@ -322,7 +322,7 @@ Main components
 
 #how h2{
     text-align: center;
-    margin: 120px 0 50px;
+   
 }
 
 
@@ -513,7 +513,7 @@ background-position: 30% 0px;
     background: url("../img/how-01.png") no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    
+
 }
 
 

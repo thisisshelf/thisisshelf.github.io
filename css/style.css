@@ -378,28 +378,28 @@ Main components
       #section1{
     background: url("../img/home-01.png") no-repeat;
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: fixed!important;
 
 
   }
   #section2{
     background: url("../img/explore-01.png") no-repeat;
       background-size: cover;
-    background-attachment: fixed;
+    background-attachment: fixed!important;
 
 
   }
   #section3{
     background: url("../img/collect-01.png") no-repeat;
       background-size: cover;
-    background-attachment: fixed;
+    background-attachment: fixed!important;
 
 
   }
   #section4{
     background: url("../img/learn-01.png") no-repeat;
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: fixed!important;
 
   }
 
@@ -408,14 +408,14 @@ Main components
   #section5{
   background: url("../img/home-01.png") no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+  background-attachment: fixed!important;
 
   }
 
   #how{
     background: url("../img/how-01.png") no-repeat;
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: fixed!important;
 
 
 

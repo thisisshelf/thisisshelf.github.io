@@ -345,6 +345,7 @@ Main components
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  margin: -20px;
 }
 
   .third {

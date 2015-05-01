@@ -1,4 +1,6 @@
 jQuery(document).ready(function($){
+
+
 	var contentSections = $('.section'),
 		navigationItems = $('#vertical-nav a');
 
@@ -46,4 +48,58 @@ jQuery(document).ready(function($){
         	600
         );
 	}
+});
+
+$(document).ready(function() {
+	
+
+	
+	Parse.initialize("R4Kc0m1jkalwqwTQcCLxrJUOcKC8SDuObIbNj3UV", "4wIsEwMXTzWXK2cpMJWPUHLGSyGoj8EhjiFhK5xV");
+
+	var FormSubmission = Parse.Object.extend("FormSubmission");
+	
+	$("#checkbox").click(function() {
+	
+		if($("#checkbox").is(':checked')){
+			$("#affiliation-group").show();
+			console.log("checked");
+		}
+		else{
+			$("#affiliation-group").hide();
+			console.log("checked not");
+		}
+});
+	$("#betaSignUp").on("submit", function(e) {
+		e.preventDefault();
+
+		console.log("Handling the submit");
+		//add error handling here
+		//gather the form data
+
+
+
+
+		var data = {};
+		data.name = $("#name").val();
+		data.email = $("#email").val();
+		data.affiliation = $("#affiliation").val();
+		
+
+
+		var formSubmission = new FormSubmission();
+		formSubmission.save(data, {
+			success:function() {
+				console.log("Success");
+
+				$("#betaSignUp").hide();
+				$("#thank-you").show();
+
+			},
+			error:function(e) {
+				console.dir(e);
+			}
+		});
+		
+	});
+	
 });

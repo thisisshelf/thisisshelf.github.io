@@ -547,21 +547,21 @@ background-position: 30% 0px;
 
   }
   #section2{
-    background: url("../img/explore-01.png") no-repeat;
+    background: url("../img/explore.png") no-repeat;
       background-size: cover;
     background-attachment: fixed;
 
 
   }
   #section3{
-    background: url("../img/collect-01.png") no-repeat;
+    background: url("../img/collect.png") no-repeat;
       background-size: cover;
     background-attachment: fixed;
 
 
   }
   #section4{
-    background: url("../img/learn-01.png") no-repeat;
+    background: url("../img/learn.png") no-repeat;
     background-size: cover;
     background-attachment: fixed;
 
